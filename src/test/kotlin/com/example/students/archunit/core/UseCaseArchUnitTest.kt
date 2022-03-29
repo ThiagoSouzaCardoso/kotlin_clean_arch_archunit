@@ -1,6 +1,11 @@
 package com.example.students.archunit.core
 
-import com.example.students.archunit.CleanArchitectureTest
+import com.example.students.archunit.CleanArchitectureConstantes.CONFIGURATION_PACKAGE
+import com.example.students.archunit.CleanArchitectureConstantes.ENTRYPOINT_PACKAGE
+import com.example.students.archunit.CleanArchitectureConstantes.PACKAGE_NAME
+import com.example.students.archunit.CleanArchitectureConstantes.USE_CASES_DEEP_PACKAGE
+import com.example.students.archunit.CleanArchitectureConstantes.USE_CASES_PACKAGE
+import com.example.students.archunit.CleanArchitectureConstantes.USE_CASES_PUBLIC_METHODS_LIMIT
 import com.tngtech.archunit.core.domain.JavaClass
 import com.tngtech.archunit.core.domain.JavaMethod
 import com.tngtech.archunit.core.domain.JavaModifier
@@ -11,7 +16,7 @@ import com.tngtech.archunit.lang.ConditionEvents
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition
 import com.tngtech.archunit.library.Architectures
 
-@AnalyzeClasses(packages = [CleanArchitectureTest.PACKAGE_NAME])
+@AnalyzeClasses(packages = [PACKAGE_NAME])
 class UseCaseArchUnitTest {
 
     @ArchTest
@@ -25,7 +30,7 @@ class UseCaseArchUnitTest {
     val useCasesImplCannotBeAcessedByExternalWorld = Architectures.layeredArchitecture()
         .`as`("")
         .layer("UseCases")
-        .definedBy(CleanArchitectureTest.USE_CASES_PACKAGE)
+        .definedBy(USE_CASES_PACKAGE)
         .layer("UseCasesImpl")
         .definedBy("..core.usecases.impl..")
         .whereLayer("UseCasesImpl")
@@ -34,7 +39,7 @@ class UseCaseArchUnitTest {
     @ArchTest
     val useCasesShouldResideInsideCore = ArchRuleDefinition.classes()
         .that()
-        .resideInAPackage(CleanArchitectureTest.USE_CASES_PACKAGE)
+        .resideInAPackage(USE_CASES_PACKAGE)
         .should()
         .haveSimpleNameEndingWith("UseCase")
         .because("UseCases are the core of our business, hence they should stay inside core.");
@@ -43,11 +48,11 @@ class UseCaseArchUnitTest {
     val useCasesCanBeAccessedByExternalWorld = Architectures.layeredArchitecture()
         .`as`("Use Case External World Access.")
         .layer("UseCases")
-        .definedBy(CleanArchitectureTest.USE_CASES_PACKAGE + CleanArchitectureTest.ROOT_PACKAGE)
+        .definedBy(USE_CASES_DEEP_PACKAGE)
         .layer("Entrypoints")
-        .definedBy(CleanArchitectureTest.ENTRYPOINT_PACKAGE)
+        .definedBy(ENTRYPOINT_PACKAGE)
         .layer("Configuration")
-        .definedBy(CleanArchitectureTest.CONFIGURATION_PACKAGE)
+        .definedBy(CONFIGURATION_PACKAGE)
         .whereLayer("UseCases")
         .mayOnlyBeAccessedByLayers("UseCases", "Entrypoints", "Configuration")
         .because("It's ok for Use Cases to be accessed by external world.")
@@ -66,11 +71,11 @@ class UseCaseArchUnitTest {
                         publicMethodsCount += 1
                     }
                 }
-                if (publicMethodsCount > CleanArchitectureTest.USE_CASES_PUBLIC_METHODS_LIMIT) {
+                if (publicMethodsCount > USE_CASES_PUBLIC_METHODS_LIMIT) {
                     throw AssertionError(
                         java.lang.String.format(
                             "Class %s contains %d public methods, when limit is %d",
-                            name, publicMethodsCount, CleanArchitectureTest.USE_CASES_PUBLIC_METHODS_LIMIT
+                            name, publicMethodsCount, USE_CASES_PUBLIC_METHODS_LIMIT
                         )
                     )
                 }

@@ -1,15 +1,13 @@
 package com.example.students.archunit
 
-import com.example.students.archunit.CleanArchitectureTest.Companion.PACKAGE_NAME
+import com.example.students.archunit.CleanArchitectureConstantes.PACKAGE_NAME
 import com.tngtech.archunit.junit.AnalyzeClasses
 
 
 @AnalyzeClasses(packages = [PACKAGE_NAME])
-class CleanArchitectureTest {
+object CleanArchitectureConstantes {
 
-    companion object{
-        const val ROOT_PACKAGE = ".."
-        const val PACKAGE_NAME: String = "com.example.students"
+        const val PACKAGE_NAME: String = "com.example.students.."
         const val CORE_PACKAGE: String = "..core.."
         const val USE_CASES_PACKAGE: String = "..core.usecases"
         const val USE_CASES_DEEP_PACKAGE: String = "..core.usecases.."
@@ -32,8 +30,8 @@ class CleanArchitectureTest {
 
         const val JAVA_PACKAGE: String = "java.."
         const val KOTLIN_PACKAGE: String = "kotlin.."
+        const val JETBRAINS_PACKAGE: String = "org.jetbrains.annotations.."
         const val SPRING_PACKAGE: String = "org.springframework.."
         const val LOG_PACKAGE: String = "org.slf4j.."
-    }
 
 }

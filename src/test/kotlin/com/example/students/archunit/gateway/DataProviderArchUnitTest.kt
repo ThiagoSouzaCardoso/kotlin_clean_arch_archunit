@@ -1,6 +1,12 @@
 package com.example.students.archunit.gateway
 
-import com.example.students.archunit.CleanArchitectureTest.*
+import com.example.students.archunit.CleanArchitectureConstantes.DATA_PROVIDERS_DATABASES_COLLECTIONS_PACKAGE
+import com.example.students.archunit.CleanArchitectureConstantes.DATA_PROVIDERS_DATABASES_REPOSITORY_PACKAGE
+import com.example.students.archunit.CleanArchitectureConstantes.DATA_PROVIDERS_INTEGRATIONS_INPUTS_PACKAGE
+import com.example.students.archunit.CleanArchitectureConstantes.DATA_PROVIDERS_INTEGRATIONS_OUTPUTS_PACKAGE
+import com.example.students.archunit.CleanArchitectureConstantes.DATA_PROVIDERS_PACKAGE
+import com.example.students.archunit.CleanArchitectureConstantes.PACKAGE_NAME
+import com.example.students.archunit.CleanArchitectureConstantes.PORTS_PACKAGE
 import com.tngtech.archunit.junit.AnalyzeClasses
 import com.tngtech.archunit.junit.ArchTest
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition
@@ -12,13 +18,13 @@ import org.springframework.stereotype.Component
 import javax.persistence.Entity
 import javax.persistence.Table
 
-@AnalyzeClasses(packages = [Companion.PACKAGE_NAME])
+@AnalyzeClasses(packages = [PACKAGE_NAME])
 class DataProviderArchUnitTest {
 
     @ArchTest
     val dataProvidersShouldHaveNameEndingWithDataProvider = ArchRuleDefinition.classes()
         .that().
-        resideInAPackage(Companion.DATA_PROVIDERS_PACKAGE).should().
+        resideInAPackage(DATA_PROVIDERS_PACKAGE).should().
         haveSimpleNameEndingWith("DataProvider")
         .andShould().beAnnotatedWith(Component::class.java)
         .because("Dataproviders are need to ending with DataProvider.");
@@ -27,7 +33,7 @@ class DataProviderArchUnitTest {
     @ArchTest
     val databaseRepositoryShouldImplementJPARepositoryOrCrudRepositoryOrPagingAndSortingRepository = ArchRuleDefinition.classes()
         .that().
-        resideInAPackage(Companion.DATA_PROVIDERS_DATABASES_REPOSITORY_PACKAGE).should().
+        resideInAPackage(DATA_PROVIDERS_DATABASES_REPOSITORY_PACKAGE).should().
         haveSimpleNameEndingWith("Repository")
         .andShould().beAssignableTo(JpaRepository::class.java)
         .orShould().beAssignableTo(CrudRepository::class.java)
@@ -38,15 +44,15 @@ class DataProviderArchUnitTest {
     @ArchTest
     val databaseRepositoryShouldBeAnInterface = ArchRuleDefinition.classes()
         .that().
-        resideInAPackage(Companion.DATA_PROVIDERS_DATABASES_REPOSITORY_PACKAGE).should().beInterfaces()
+        resideInAPackage(DATA_PROVIDERS_DATABASES_REPOSITORY_PACKAGE).should().beInterfaces()
         .because("Repositorys are need to be an Interface.");
 
 
     @ArchTest
     val dataProvidersShouldOnlyImplementPortInterfaces = ArchRuleDefinition.classes()
         .that().
-        resideInAPackage(Companion.DATA_PROVIDERS_PACKAGE).should().
-        implement(com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAPackage(Companion.PORTS_PACKAGE))
+        resideInAPackage(DATA_PROVIDERS_PACKAGE).should().
+        implement(com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAPackage(PORTS_PACKAGE))
         .andShould().beAnnotatedWith(Component::class.java)
         .because("Dataproviders are need to implementing a port.");
 
@@ -66,7 +72,7 @@ class DataProviderArchUnitTest {
     @ArchTest
     val collectionsShouldHaveNameEndingWithCollection =   ArchRuleDefinition.classes()
         .that().
-        resideInAPackage(Companion.DATA_PROVIDERS_DATABASES_COLLECTIONS_PACKAGE).should().
+        resideInAPackage(DATA_PROVIDERS_DATABASES_COLLECTIONS_PACKAGE).should().
         haveSimpleNameEndingWith("Collection")
         .allowEmptyShould(true)
         .because("Entities collections are need to ending with Collection");
@@ -74,7 +80,7 @@ class DataProviderArchUnitTest {
     @ArchTest
     val inputsIntegrationShouldHaveNameEndingWithRequest =   ArchRuleDefinition.classes()
         .that().
-        resideInAPackage(Companion.DATA_PROVIDERS_INTEGRATIONS_INPUTS_PACKAGE).should().
+        resideInAPackage(DATA_PROVIDERS_INTEGRATIONS_INPUTS_PACKAGE).should().
         haveSimpleNameEndingWith("Request")
         .allowEmptyShould(true)
         .because("Integration inputs are need to ending with Request");
@@ -82,7 +88,7 @@ class DataProviderArchUnitTest {
     @ArchTest
     val outputsIntegrationShouldHaveNameEndingWithResponse =   ArchRuleDefinition.classes()
         .that().
-        resideInAPackage(Companion.DATA_PROVIDERS_INTEGRATIONS_OUTPUTS_PACKAGE).should().
+        resideInAPackage(DATA_PROVIDERS_INTEGRATIONS_OUTPUTS_PACKAGE).should().
         haveSimpleNameEndingWith("Response")
         .allowEmptyShould(true)
         .because("Integration outputs are need to ending with Response");

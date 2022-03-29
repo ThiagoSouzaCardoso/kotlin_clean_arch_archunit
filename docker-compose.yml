@@ -24,6 +24,7 @@ services:
     restart: always
     depends_on:
       - students-mysql-service
+        
 networks:
   spring-boot-mysql-network:
     driver: bridge
