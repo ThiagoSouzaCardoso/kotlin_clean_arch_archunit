@@ -10,10 +10,8 @@ class CreateStudentsUseCaseImpl(
    private val createStudentsPort: CreateStudentsPort
 ) : CreateStudentsUseCase {
 
-
     override fun execute(createStudentCommand: CreateStudentCommand) {
         createStudentsPort.create(createStudentCommand.toDomain())
     }
-
 
 }

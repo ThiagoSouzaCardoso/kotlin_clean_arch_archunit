@@ -21,7 +21,7 @@ class CleanArchitectureTest {
 
     companion object{
         const val PACKAGE_NAME: String = "com.example.students"
-        const val USECASES_PUBLIC_METHODS_LIMIT = 1
+        const val USE_CASES_PUBLIC_METHODS_LIMIT = 1
     }
 
     @ArchTest
@@ -109,6 +109,14 @@ class CleanArchitectureTest {
         .because("Commands are need to ending with Command");
 
     @ArchTest
+    val controllerShouldHaveNameEndingWithController = ArchRuleDefinition.classes()
+        .that().
+        resideInAPackage("..entrypoints.rest").should().
+        haveSimpleNameEndingWith("Controller")
+        .because("Controllers are need to ending with Controller");
+
+
+    @ArchTest
     val gatewaysCantBeAcessed = Architectures.layeredArchitecture()
         .`as`("Gateways access control.")
         .layer("Core")
@@ -150,7 +158,22 @@ class CleanArchitectureTest {
         .because("Integration inputs are need to ending with Request");
 
     @ArchTest
-    val inputIntegrationShouldHaveNameEndingWithResponse =   ArchRuleDefinition.classes()
+    val inputRestShouldHaveNameEndingWithRequest =   ArchRuleDefinition.classes()
+        .that().
+        resideInAPackage("..entrypoints.rest.inputs").should().
+        haveSimpleNameEndingWith("Request")
+        .allowEmptyShould(true)
+        .because("Rest inputs are need to ending with Request");
+
+    val outputRestShouldHaveNameEndingWithResponse =   ArchRuleDefinition.classes()
+        .that().
+        resideInAPackage("..entrypoints.rest.outputs").should().
+        haveSimpleNameEndingWith("Response")
+        .allowEmptyShould(true)
+        .because("Integration outputs are need to ending with Response");
+
+    @ArchTest
+    val outputIntegrationShouldHaveNameEndingWithResponse =   ArchRuleDefinition.classes()
         .that().
         resideInAPackage("..dataproviders.integrations.*.outputs").should().
         haveSimpleNameEndingWith("Response")
@@ -199,11 +222,11 @@ class CleanArchitectureTest {
                         publicMethodsCount += 1
                     }
                 }
-                if (publicMethodsCount > USECASES_PUBLIC_METHODS_LIMIT) {
+                if (publicMethodsCount > USE_CASES_PUBLIC_METHODS_LIMIT) {
                     throw AssertionError(
                         java.lang.String.format(
                             "Class %s contains %d public methods, when limit is %d",
-                            name, publicMethodsCount, USECASES_PUBLIC_METHODS_LIMIT
+                            name, publicMethodsCount, USE_CASES_PUBLIC_METHODS_LIMIT
                         )
                     )
                 }
