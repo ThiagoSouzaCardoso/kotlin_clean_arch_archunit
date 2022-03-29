@@ -1,5 +1,6 @@
-package com.example.students.archunit
+package com.example.students.archunit.core
 
+import com.example.students.archunit.CleanArchitectureTest
 import com.tngtech.archunit.core.domain.JavaClass
 import com.tngtech.archunit.core.domain.JavaMethod
 import com.tngtech.archunit.core.domain.JavaModifier
@@ -42,7 +43,7 @@ class UseCaseArchUnitTest {
     val useCasesCanBeAccessedByExternalWorld = Architectures.layeredArchitecture()
         .`as`("Use Case External World Access.")
         .layer("UseCases")
-        .definedBy(CleanArchitectureTest.USE_CASES_PACKAGE+ CleanArchitectureTest.ROOT_PACKAGE)
+        .definedBy(CleanArchitectureTest.USE_CASES_PACKAGE + CleanArchitectureTest.ROOT_PACKAGE)
         .layer("Entrypoints")
         .definedBy(CleanArchitectureTest.ENTRYPOINT_PACKAGE)
         .layer("Configuration")
