@@ -1,16 +1,15 @@
-package com.example.students
+package com.example.students.archunit
 
 import com.tngtech.archunit.junit.AnalyzeClasses
 import com.tngtech.archunit.junit.ArchTest
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition
-import com.tngtech.archunit.library.Architectures
 import com.tngtech.archunit.library.dependencies.SlicesRuleDefinition
 import org.springframework.stereotype.Component
 import javax.persistence.Entity
 import javax.persistence.Table
 
 @AnalyzeClasses(packages = [CleanArchitectureTest.PACKAGE_NAME])
-class GatewayArchUnitTest {
+class DataProviderArchUnitTest {
 
     @ArchTest
     val dataProvidersShouldHaveNameEndingWithDataProvider = ArchRuleDefinition.classes()
@@ -19,26 +18,6 @@ class GatewayArchUnitTest {
         haveSimpleNameEndingWith("DataProvider")
         .andShould().beAnnotatedWith(Component::class.java)
         .because("Dataproviders are need to ending with DataProvider.");
-
-    @ArchTest
-    val controllerShouldHaveNameEndingWithController = ArchRuleDefinition.classes()
-        .that().
-        resideInAPackage(CleanArchitectureTest.ENTRYPOINT_REST_PACKAGE).should().
-        haveSimpleNameEndingWith("Controller")
-        .because("Controllers are need to ending with Controller");
-
-    @ArchTest
-    val gatewaysCantBeAcessedByOthersLayers = Architectures.layeredArchitecture()
-        .`as`("Gateways access control.")
-        .layer("Core")
-        .definedBy(CleanArchitectureTest.CORE_PACKAGE)
-        .layer("Gateways")
-        .definedBy(CleanArchitectureTest.GATEWAY_PACKAGE)
-        .layer("Configuration")
-        .definedBy(CleanArchitectureTest.CONFIGURATION_PACKAGE)
-        .whereLayer("Gateways")
-        .mayNotBeAccessedByAnyLayer()
-        .because("Gateways should not be accessed by other layers.")
 
     @ArchTest
     val tablesShouldBeAnnotatedByEntityOrTable = ArchRuleDefinition.classes()
@@ -51,6 +30,7 @@ class GatewayArchUnitTest {
         .allowEmptyShould(true)
         .because("Table entities belong to the Dataprovider layer, and those annotations are required to use JPA" +
                 "in our architecture.")
+
 
     @ArchTest
     val collectionsShouldHaveNameEndingWithCollection =   ArchRuleDefinition.classes()
@@ -76,23 +56,9 @@ class GatewayArchUnitTest {
         .allowEmptyShould(true)
         .because("Integration outputs are need to ending with Response");
 
-    @ArchTest
-    val inputsRestShouldHaveNameEndingWithRequest =   ArchRuleDefinition.classes()
-        .that().
-        resideInAPackage(CleanArchitectureTest.ENTRYPOINT_REST_INPUTS_PACKAGE).should().
-        haveSimpleNameEndingWith("Request")
-        .allowEmptyShould(true)
-        .because("Rest inputs are need to ending with Request");
-
-    val outputsRestShouldHaveNameEndingWithResponse =   ArchRuleDefinition.classes()
-        .that().
-        resideInAPackage(CleanArchitectureTest.ENTRYPOINT_REST_OUTPUTS_PACKAGE).should().
-        haveSimpleNameEndingWith("Response")
-        .allowEmptyShould(true)
-        .because("Integration outputs are need to ending with Response");
 
     @ArchTest
-    val tablesShouldHaveNameEndingWithTable =   ArchRuleDefinition.classes()
+    val tablesShouldHaveNameEndingWithTable =  ArchRuleDefinition.classes()
         .that().
         resideInAPackage("..dataproviders.databases.entities..").should().
         haveSimpleNameEndingWith("Table")

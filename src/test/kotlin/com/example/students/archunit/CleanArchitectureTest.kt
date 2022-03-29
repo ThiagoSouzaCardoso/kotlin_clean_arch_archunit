@@ -1,11 +1,7 @@
-package com.example.students
+package com.example.students.archunit
 
-import com.example.students.CleanArchitectureTest.Companion.PACKAGE_NAME
+import com.example.students.archunit.CleanArchitectureTest.Companion.PACKAGE_NAME
 import com.tngtech.archunit.junit.AnalyzeClasses
-import com.tngtech.archunit.junit.ArchTest
-import com.tngtech.archunit.lang.syntax.ArchRuleDefinition
-import com.tngtech.archunit.library.Architectures
-import com.tngtech.archunit.library.dependencies.SlicesRuleDefinition
 
 
 @AnalyzeClasses(packages = [PACKAGE_NAME])
@@ -31,12 +27,5 @@ class CleanArchitectureTest {
         const val CONFIGURATION_PACKAGE: String = "..configuration.."
         const val USE_CASES_PUBLIC_METHODS_LIMIT = 1
     }
-
-
-
-
-
-
-
 
 }
