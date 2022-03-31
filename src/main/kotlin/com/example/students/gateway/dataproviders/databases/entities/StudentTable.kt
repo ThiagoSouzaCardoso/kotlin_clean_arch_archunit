@@ -16,7 +16,6 @@ data class StudentTable(
 
     private val name: String,
 
-    @Temporal(TemporalType.DATE)
     private val birthDay: LocalDate
 
 )
