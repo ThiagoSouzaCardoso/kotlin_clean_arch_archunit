@@ -1,17 +1,14 @@
 package com.example.students.gateway.dataproviders.databases.entities
 
-import com.example.students.core.domains.Student
-import io.micrometer.core.lang.NonNull
 import java.time.LocalDate
 import javax.persistence.*
 
-
 @Entity
-@Table
+@Table(name = "student")
 data class StudentTable(
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private val id: Long? = null,
 
     private val name: String,
