@@ -6,11 +6,12 @@ import com.tngtech.archunit.junit.AnalyzeClasses
 
 @AnalyzeClasses(packages = [PACKAGE_NAME])
 object CleanArchitectureConstantes {
-
         const val PACKAGE_NAME: String = "com.example.students.."
         const val CORE_PACKAGE: String = "..core.."
         const val USE_CASES_PACKAGE: String = "..core.usecases"
+//        const val FACADE_PACKAGE: String = "..core.facade.."
         const val USE_CASES_DEEP_PACKAGE: String = "..core.usecases.."
+//        const val USE_CASES_IMPL_PACKAGE: String = "..core.usecases.impl"
         const val PORTS_PACKAGE: String = "..core.ports.."
         const val EVENTS_PACKAGE: String = "..core.events.."
         const val COMMANDS_PACKAGE: String = "..core.commands.."
@@ -26,6 +27,7 @@ object CleanArchitectureConstantes {
         const val DATA_PROVIDERS_INTEGRATIONS_OUTPUTS_PACKAGE: String = "..gateway.dataproviders.integrations.*.outputs"
         const val DATA_PROVIDERS_PACKAGE: String = "..gateway.dataproviders"
         const val CONFIGURATION_PACKAGE: String = "..configuration.."
+
         const val USE_CASES_PUBLIC_METHODS_LIMIT = 1
 
         const val JAVA_PACKAGE: String = "java.."

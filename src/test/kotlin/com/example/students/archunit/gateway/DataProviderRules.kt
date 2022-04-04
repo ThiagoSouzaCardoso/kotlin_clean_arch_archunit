@@ -5,9 +5,7 @@ import com.example.students.archunit.CleanArchitectureConstantes.DATA_PROVIDERS_
 import com.example.students.archunit.CleanArchitectureConstantes.DATA_PROVIDERS_INTEGRATIONS_INPUTS_PACKAGE
 import com.example.students.archunit.CleanArchitectureConstantes.DATA_PROVIDERS_INTEGRATIONS_OUTPUTS_PACKAGE
 import com.example.students.archunit.CleanArchitectureConstantes.DATA_PROVIDERS_PACKAGE
-import com.example.students.archunit.CleanArchitectureConstantes.PACKAGE_NAME
 import com.example.students.archunit.CleanArchitectureConstantes.PORTS_PACKAGE
-import com.tngtech.archunit.junit.AnalyzeClasses
 import com.tngtech.archunit.junit.ArchTest
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition
 import com.tngtech.archunit.library.dependencies.SlicesRuleDefinition
@@ -18,8 +16,7 @@ import org.springframework.stereotype.Component
 import javax.persistence.Entity
 import javax.persistence.Table
 
-@AnalyzeClasses(packages = [PACKAGE_NAME])
-class DataProviderArchUnitTest {
+class DataProviderRules {
 
     @ArchTest
     val dataProvidersShouldHaveNameEndingWithDataProvider = ArchRuleDefinition.classes()

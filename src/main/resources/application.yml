@@ -1,3 +1,10 @@
+a: usecase
+
+auto:
+  create:
+    topics:
+      enable: true
+
 spring:
   application:
     name: ms-students
@@ -12,3 +19,29 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     open-in-view: false
     show-sql: true
+
+  kafka:
+    producer:
+      bootstrap-servers: 127.0.0.1:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      group-id: group_id
+      properties:
+        schema:
+          registry:
+            url: http://127.0.0.1:8081
+    consumer:
+      bootstrap-servers: 127.0.0.1:9092
+      group-id: group_id2
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      properties:
+        schema:
+          registry:
+            url: http://127.0.0.1:8081
+        specific:
+          avro:
+            reader: true
+      acks: MANUAL_IMMEDIATE

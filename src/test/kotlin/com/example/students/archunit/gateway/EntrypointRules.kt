@@ -1,6 +1,5 @@
 package com.example.students.archunit.gateway
 
-import com.example.students.archunit.CleanArchitectureConstantes.PACKAGE_NAME
 import com.example.students.archunit.CleanArchitectureConstantes.ENTRYPOINT_REST_PACKAGE
 import com.example.students.archunit.CleanArchitectureConstantes.COMMANDS_PACKAGE
 import com.example.students.archunit.CleanArchitectureConstantes.DOMAINS_PACKAGE
@@ -11,15 +10,13 @@ import com.example.students.archunit.CleanArchitectureConstantes.KOTLIN_PACKAGE
 import com.example.students.archunit.CleanArchitectureConstantes.LOG_PACKAGE
 import com.example.students.archunit.CleanArchitectureConstantes.SPRING_PACKAGE
 import com.example.students.archunit.CleanArchitectureConstantes.USE_CASES_PACKAGE
-import com.tngtech.archunit.junit.AnalyzeClasses
 import com.tngtech.archunit.junit.ArchTest
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 
-@AnalyzeClasses(packages = [PACKAGE_NAME])
-class EntrypointArchUnitTest {
+class EntrypointRules {
 
 
     @ArchTest
