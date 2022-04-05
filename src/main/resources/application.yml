@@ -1,10 +1,3 @@
-a: usecase
-
-auto:
-  create:
-    topics:
-      enable: true
-
 spring:
   application:
     name: ms-students
@@ -25,14 +18,14 @@ spring:
       bootstrap-servers: 127.0.0.1:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
-      group-id: group_id
+      group-id: student_ms
       properties:
         schema:
           registry:
             url: http://127.0.0.1:8081
     consumer:
       bootstrap-servers: 127.0.0.1:9092
-      group-id: group_id2
+      group-id: student_ms
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -45,3 +38,16 @@ spring:
           avro:
             reader: true
       acks: MANUAL_IMMEDIATE
+
+kafka:
+  topic:
+    student-created:
+      name: StudentCreated
+      partitions: 10
+      replicas: 1
+    student-course-created:
+      name: StudentCourseCreated
+      partitions: 10
+      replicas: 1
+
+
