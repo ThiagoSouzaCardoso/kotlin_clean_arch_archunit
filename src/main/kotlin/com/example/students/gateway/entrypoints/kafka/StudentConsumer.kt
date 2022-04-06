@@ -1,8 +1,8 @@
 package com.example.students.gateway.entrypoints.kafka
 
+import com.example.schema.avro.StudentMessageInput
 import com.example.students.core.commands.CreateStudentCommand
 import com.example.students.core.usecases.CreateStudentsUseCase
-import io.confluent.developer.StudentMessageInput
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Controller

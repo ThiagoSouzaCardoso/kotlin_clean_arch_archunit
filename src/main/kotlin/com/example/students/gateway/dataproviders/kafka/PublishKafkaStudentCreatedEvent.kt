@@ -1,8 +1,8 @@
 package com.example.students.gateway.dataproviders.kafka
 
+import com.example.schema.avro.StudentMessageInput
 import com.example.students.core.events.StudentCreatedEvent
 import com.example.students.core.ports.PublishStudentCreatedEventPort
-import io.confluent.developer.StudentMessageInput
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.kafka.support.SendResult
