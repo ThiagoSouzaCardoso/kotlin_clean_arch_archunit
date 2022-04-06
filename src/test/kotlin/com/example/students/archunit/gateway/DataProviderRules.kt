@@ -4,6 +4,7 @@ import com.example.students.archunit.CleanArchitectureConstantes.DATA_PROVIDERS_
 import com.example.students.archunit.CleanArchitectureConstantes.DATA_PROVIDERS_DATABASES_REPOSITORY_PACKAGE
 import com.example.students.archunit.CleanArchitectureConstantes.DATA_PROVIDERS_INTEGRATIONS_INPUTS_PACKAGE
 import com.example.students.archunit.CleanArchitectureConstantes.DATA_PROVIDERS_INTEGRATIONS_OUTPUTS_PACKAGE
+import com.example.students.archunit.CleanArchitectureConstantes.DATA_PROVIDERS_KAFKA_PUBLISH_PACKAGE
 import com.example.students.archunit.CleanArchitectureConstantes.DATA_PROVIDERS_PACKAGE
 import com.example.students.archunit.CleanArchitectureConstantes.PORTS_PACKAGE
 import com.tngtech.archunit.junit.ArchTest
@@ -24,7 +25,7 @@ class DataProviderRules {
         resideInAPackage(DATA_PROVIDERS_PACKAGE).should().
         haveSimpleNameEndingWith("DataProvider")
         .andShould().beAnnotatedWith(Component::class.java)
-        .because("Dataproviders are need to ending with DataProvider.");
+        .because("Dataproviders are need to ending with DataProvider.")
 
 
     @ArchTest
@@ -42,7 +43,7 @@ class DataProviderRules {
     val databaseRepositoryShouldBeAnInterface = ArchRuleDefinition.classes()
         .that().
         resideInAPackage(DATA_PROVIDERS_DATABASES_REPOSITORY_PACKAGE).should().beInterfaces()
-        .because("Repositorys are need to be an Interface.");
+        .because("Repositorys are need to be an Interface.")
 
 
     @ArchTest
@@ -51,7 +52,7 @@ class DataProviderRules {
         resideInAPackage(DATA_PROVIDERS_PACKAGE).should().
         implement(com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAPackage(PORTS_PACKAGE))
         .andShould().beAnnotatedWith(Component::class.java)
-        .because("Dataproviders are need to implementing a port.");
+        .because("Dataproviders are need to implementing a port.")
 
     @ArchTest
     val tablesShouldBeAnnotatedByEntityOrTable = ArchRuleDefinition.classes()
@@ -72,7 +73,7 @@ class DataProviderRules {
         resideInAPackage(DATA_PROVIDERS_DATABASES_COLLECTIONS_PACKAGE).should().
         haveSimpleNameEndingWith("Collection")
         .allowEmptyShould(true)
-        .because("Entities collections are need to ending with Collection");
+        .because("Entities collections are need to ending with Collection")
 
     @ArchTest
     val inputsIntegrationShouldHaveNameEndingWithRequest =   ArchRuleDefinition.classes()
@@ -80,7 +81,7 @@ class DataProviderRules {
         resideInAPackage(DATA_PROVIDERS_INTEGRATIONS_INPUTS_PACKAGE).should().
         haveSimpleNameEndingWith("Request")
         .allowEmptyShould(true)
-        .because("Integration inputs are need to ending with Request");
+        .because("Integration inputs are need to ending with Request")
 
     @ArchTest
     val outputsIntegrationShouldHaveNameEndingWithResponse =   ArchRuleDefinition.classes()
@@ -88,7 +89,7 @@ class DataProviderRules {
         resideInAPackage(DATA_PROVIDERS_INTEGRATIONS_OUTPUTS_PACKAGE).should().
         haveSimpleNameEndingWith("Response")
         .allowEmptyShould(true)
-        .because("Integration outputs are need to ending with Response");
+        .because("Integration outputs are need to ending with Response")
 
 
     @ArchTest
@@ -105,6 +106,22 @@ class DataProviderRules {
         .should()
         .beFreeOfCycles()
         .allowEmptyShould(true)
-        .because("We should not have entities with cyclical dependencies.");
+        .because("We should not have entities with cyclical dependencies.")
+
+
+    val kafkaPublishShouldStartWithPublishAndFinishWithEvent = ArchRuleDefinition.classes()
+        .that().
+        resideInAPackage(DATA_PROVIDERS_KAFKA_PUBLISH_PACKAGE).should().
+        haveSimpleNameEndingWith("Event").andShould().
+            haveSimpleNameStartingWith("Publish")
+        .allowEmptyShould(true)
+        .because("Publish Kafka need to start with Publish and ending with Event")
+
+    val kafkaPublishShouldimplementPort = ArchRuleDefinition.classes()
+        .that().
+        resideInAPackage(DATA_PROVIDERS_KAFKA_PUBLISH_PACKAGE).should().
+        implement(com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAPackage(PORTS_PACKAGE))
+        .allowEmptyShould(true)
+        .because("Publish Kafka need to be implemented by Port")
 
 }

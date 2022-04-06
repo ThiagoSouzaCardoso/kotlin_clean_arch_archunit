@@ -17,6 +17,7 @@ object CleanArchitectureConstantes {
         const val GATEWAY_PACKAGE: String = "..gateway.."
         const val ENTRYPOINT_PACKAGE: String = "..gateway.entrypoints.."
         const val ENTRYPOINT_REST_PACKAGE: String = "..gateway.entrypoints.rest"
+        const val ENTRYPOINT_KAFKA_PACKAGE: String = "..gateway.entrypoints.kafka"
         const val ENTRYPOINT_REST_INPUTS_PACKAGE: String = "..gateway.entrypoints.rest.inputs.."
         const val ENTRYPOINT_REST_OUTPUTS_PACKAGE: String = "..gateway.entrypoints.rest.outputs.."
         const val DATA_PROVIDERS_DATABASES_COLLECTIONS_PACKAGE: String = "..gateway.dataproviders.databases.collections.."
@@ -25,13 +26,13 @@ object CleanArchitectureConstantes {
         const val DATA_PROVIDERS_INTEGRATIONS_OUTPUTS_PACKAGE: String = "..gateway.dataproviders.integrations.*.outputs"
         const val DATA_PROVIDERS_PACKAGE: String = "..gateway.dataproviders"
         const val CONFIGURATION_PACKAGE: String = "..configuration.."
+        const val DATA_PROVIDERS_KAFKA_PUBLISH_PACKAGE = "..gateway.daproviders.kafka"
 
         const val USE_CASES_PUBLIC_METHODS_LIMIT = 1
 
         const val JAVA_PACKAGE: String = "java.."
         const val KOTLIN_PACKAGE: String = "kotlin.."
         const val JETBRAINS_PACKAGE: String = "org.jetbrains.annotations.."
-        const val SPRING_PACKAGE: String = "org.springframework.."
         const val LOG_PACKAGE: String = "org.slf4j.."
 
 }

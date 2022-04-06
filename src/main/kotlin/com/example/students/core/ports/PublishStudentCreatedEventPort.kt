@@ -2,6 +2,6 @@ package com.example.students.core.ports
 
 import com.example.students.core.events.StudentCreatedEvent
 
-interface PublishStudentCreatedEvent {
+interface PublishStudentCreatedEventPort {
     fun execute(studentCreatedEvent: StudentCreatedEvent)
 }

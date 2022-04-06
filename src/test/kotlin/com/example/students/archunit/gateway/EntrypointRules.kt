@@ -1,17 +1,12 @@
 package com.example.students.archunit.gateway
 
 import com.example.students.archunit.CleanArchitectureConstantes.ENTRYPOINT_REST_PACKAGE
-import com.example.students.archunit.CleanArchitectureConstantes.COMMANDS_PACKAGE
-import com.example.students.archunit.CleanArchitectureConstantes.DOMAINS_PACKAGE
+import com.example.students.archunit.CleanArchitectureConstantes.ENTRYPOINT_KAFKA_PACKAGE
 import com.example.students.archunit.CleanArchitectureConstantes.ENTRYPOINT_REST_INPUTS_PACKAGE
 import com.example.students.archunit.CleanArchitectureConstantes.ENTRYPOINT_REST_OUTPUTS_PACKAGE
-import com.example.students.archunit.CleanArchitectureConstantes.JAVA_PACKAGE
-import com.example.students.archunit.CleanArchitectureConstantes.KOTLIN_PACKAGE
-import com.example.students.archunit.CleanArchitectureConstantes.LOG_PACKAGE
-import com.example.students.archunit.CleanArchitectureConstantes.SPRING_PACKAGE
-import com.example.students.archunit.CleanArchitectureConstantes.USE_CASES_PACKAGE
 import com.tngtech.archunit.junit.ArchTest
 import com.tngtech.archunit.lang.syntax.ArchRuleDefinition
+import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -24,6 +19,7 @@ class EntrypointRules {
         .that().
         resideInAPackage(ENTRYPOINT_REST_PACKAGE).should().
         haveSimpleNameEndingWith("Controller")
+        .allowEmptyShould(true)
         .because("Controllers are need to ending with Controller");
 
     @ArchTest
@@ -32,24 +28,8 @@ class EntrypointRules {
         resideInAPackage(ENTRYPOINT_REST_PACKAGE).should().
         beAnnotatedWith(RestController::class.java).andShould().
         beAnnotatedWith(RequestMapping::class.java)
-        .because("Controllers are need to ending with Controller");
-
-
-    @ArchTest
-    val controllersShouldAccessUseCaseAndCommandAndDomain = ArchRuleDefinition.classes()
-        .that().resideInAPackage(ENTRYPOINT_REST_PACKAGE)
-        .should().onlyAccessClassesThat().resideInAnyPackage(
-            COMMANDS_PACKAGE,
-            DOMAINS_PACKAGE,
-            USE_CASES_PACKAGE,
-            ENTRYPOINT_REST_PACKAGE,
-            ENTRYPOINT_REST_INPUTS_PACKAGE,
-            ENTRYPOINT_REST_OUTPUTS_PACKAGE,
-            JAVA_PACKAGE,
-            KOTLIN_PACKAGE,
-            SPRING_PACKAGE,
-            LOG_PACKAGE
-            )
+        .allowEmptyShould(true)
+        .because("Controllers are need to be annotated with @RestController and @RequestMapping");
 
 
     @ArchTest
@@ -68,5 +48,21 @@ class EntrypointRules {
         .because("Integration outputs are need to ending with Response");
 
 
+    @ArchTest
+    val consumerkafkaShouldHaveNameEndingWithConsumer = ArchRuleDefinition.classes()
+        .that().
+        resideInAPackage(ENTRYPOINT_KAFKA_PACKAGE).should().
+        haveSimpleNameEndingWith("Consumer")
+        .allowEmptyShould(true)
+        .because("Consumers Kafka are need to ending with Consumer");
+
+
+    @ArchTest
+    val consumerKafkaShouldHaveAnnotationController = ArchRuleDefinition.classes()
+        .that().
+        resideInAPackage(ENTRYPOINT_KAFKA_PACKAGE).should().
+        beAnnotatedWith(Controller::class.java)
+        .allowEmptyShould(true)
+        .because("Consumers Kafka are need to be annotaded with @Controller")
 
 }
