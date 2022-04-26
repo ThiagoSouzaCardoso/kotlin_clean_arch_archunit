@@ -15,8 +15,8 @@ class StudentDataProvider(
 ) : CreateStudentsPort {
 
     override fun create(student: Student) {
-        val student = StudentTable(null, student.name, student.birthDay)
-        studentRepository.save(student)
+        val studentTable = StudentTable(null, student.name, student.birthDay)
+        studentRepository.save(studentTable)
     }
 
     override fun publishEvent(studentCreatedEvent: StudentCreatedEvent) {

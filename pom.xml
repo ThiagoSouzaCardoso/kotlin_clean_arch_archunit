@@ -114,6 +114,15 @@
             <version>0.23.1</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>arch-unit-example</artifactId>
+            <classifier>tests</classifier>
+            <type>test-jar</type>
+            <version>1.1-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -172,6 +181,23 @@
                     </execution>
                 </executions>
             </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.0.0-M6</version>
+                    <configuration>
+                        <includes>
+                            <include>
+                                **/*Test.java
+                            </include>
+                        </includes>
+                        <dependenciesToScan>
+                            <dependency>arch-unit-example:org.example</dependency>
+                        </dependenciesToScan>
+                    </configuration>
+
+                </plugin>
+
         </plugins>
     </build>
 
